@@ -1,6 +1,7 @@
 import argparse
 from datetime import datetime
 import os
+import shutil
 import re
 from typing import Tuple
 import mdocfile.mdoc
@@ -31,7 +32,7 @@ def processMdocFile(folder: str, mdoc: str):
       errPath = os.path.join(folder, "frames", originPath[originPath.rfind("\\") + 1:])
       newName = folderName + "_" + str(ZValue) + "_" + str(round(TiltAngle, 1)) + "_" + date.strftime("%Y%m%d") + ".err"
       destPath = os.path.join(folderPath, newName)
-      os.symlink(os.path.abspath(errPath), destPath)
+      shutil.copyfile(errPath, destPath)
 
 def createMdocFolder(folder: str, mdoc: str) -> Tuple[str, str]:
   basename = os.path.basename(mdoc)
